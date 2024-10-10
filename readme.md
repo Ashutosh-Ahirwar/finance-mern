@@ -1,184 +1,125 @@
-we are going to use yarn to create app and vite to create
-(yarn is a package manager similar to npm)
-create folders client and server
+# Personal Finance MERN Stack Application
 
-## client setup
-inside client folder
+This is a personal finance management web application developed using the MERN stack. The application helps users track their expenses and income with features like user authentication, adding financial records, and viewing financial summaries. The backend uses Express and MongoDB Atlas, while the frontend is developed using React with TypeScript and Clerk for user authentication.
 
-```
-yarn create vite
-```
+## Table of Contents
+1. [Functionality](#functionality)
+2. [Technologies Used](#technologies-used)
+3. [Project Setup](#project-setup)
+4. [Additional Information](#additional-information)
 
-project name as .
-this will create everything inside our client folder
-react as library
-typescript as variant
+## Functionality
 
-now 
+The application allows users to:
+- Sign up and log in using Clerk.
+- Add/Delete financial records (expenses and income) using a form.
+- View a list of all financial records with options to edit.
+- Use a dashboard interface for financial management.
 
-```
-yarn
-```
+### Key Features:
+- **User Authentication**: Managed via Clerk, ensuring secure login and registration.
+- **Financial Record Management**: Users can add, delete, edit, and track their income and expenses.
+- **React Router**: The app includes multiple pages like Authentication and Dashboard.
+- **Financial Data Display**: Financial records are shown in a table using the React Table library.
 
-```
-yarn dev
-```
-will run project on our local host
+## Technologies Used
 
-now there will be bunch of files in client directory,our whole app will be inside main.tsx and App.tsx
+### Frontend (Client):
+- **React** with **TypeScript** for building the user interface.
+- **Vite** for fast development.
+- **Clerk** for user management and authentication.
+- **React Router Dom** for handling routing between pages.
+- **React Table** for displaying financial records.
+- **Yarn** as the package manager.
 
-for user management and user authentication we will use clerk
+### Backend (Server):
+- **Express.js** for building REST APIs.
+- **MongoDB Atlas** as the database.
+- **Mongoose** for data modeling.
+- **TypeScript** for type safety in the backend.
+- **Cors** for handling cross-origin requests.
 
-create a project in clerk, choose react
+## Project Setup
 
+To set up the project locally, follow these steps:
 
-clear whole App.tsx
-```
-import { useState } from 'react'
-
-
-function App() {
-  
-
-  return <></>;
-}
-
-export default App
-```
-
-in our main.tsx we will add clerk stuff but to add we need to install package inside client
-
-```
-yarn add @clerk/cleark-react
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Ashutosh-Ahirwar/finance-mern
+cd finance-mern
 ```
 
-we connect our code to clerk with the key which was generated with the clerk project
-we need to create .env.local folder in client dir and add key
+### 2. Client Setup
+- Navigate to the client directory:
+  ```bash
+  cd client
+  ```
+- Create the project using Vite:
+  ```bash
+  yarn create vite
+  ```
+  Choose the project name as '.' (current directory), React as the library, and TypeScript as the variant.
 
-now in main.tsx import clerk
+- Install dependencies:
+  ```bash
+  yarn
+  ```
 
-we can wrap all component that want to use clerk with <ClerkProvider></ClerkProvider>
-we want whole app to use so we will wrap it
+- Run the client application:
+  ```bash
+  yarn dev
+  ```
 
-we are using vite so we need to import publishable key like this 
+- Add the Clerk publishable key to `.env.local`:
+  ```bash
+  VITE_CLERK_PUBLISHABLE_KEY=<your-publishable-key>
+  ```
 
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+### 3. Server Setup
+- Navigate to the server directory:
+  ```bash
+  cd server
+  ```
 
-make sure to provide this variable in component
+- Initialize the project and install dependencies:
+  ```bash
+  yarn init -y
+  yarn add express @types/express mongoose nodemon ts-node typescript cors @types/cors
+  ```
 
-we dont wanna run app if there is no key so we will add condition in if statement
+- Set up TypeScript:
+  ```bash
+  yarn tsc --init
+  ```
 
-now we will start working on App.tsx
+- Update the `tsconfig.json`:
+  Uncomment and set:
+  ```
+  "rootDir": "./src",
+  "outDir": "./build",
+  "moduleResolution": "node10",
+  ```
 
-we have multi routes in our app so we will start by defining routes with react-router-dom 
-
-in client folder
-
-```
-yarn add react-router-dom
-```
-
-import in App.tsx
-
-to create routes we will use <Router></Router> component
-
-now create folder pages in client/src
-for each page create individual page
-auth, dashboard,
-and inside each create index.tsx which will represent entry point to each route
-
-now in auth/index.tsx import clerk 
-
-there will be 2 states our app 1 signedout and other signed in
-
-with help of "modal" the button will not redirect to new page instead it will show popup
-
-<UserButton /> instead of <Navigate to="/"> for quick test
-
-after adding signin page fuctionality try signin
-
-to know if we are signed in we can inspect element go to application section we can see guest session id , clerk db jwt also bunch of stuff in cookies
-
-the users will show up in clerk
-
-
-Now we will work on dashboard, we will seperate this page in 2 different components 
-1 financial record form - menu where we can add track expense or new income 
-2 financial record list - which will contain all the things you have, edit them
-
-to access name of the user inside dashboard from clerk we use hooks useUser
-
-user? (? is for in case null)
-
-these components will be in their seperate file in dashboard dir
-
-now build database on atlas
-
-get username and password
-use mongodb for vscode
-
-
-
-
-## server
-
-in server/src dir create index.ts keep the password and username
-
-in server dir
-
-```
-yarn init -y
-yarn add express @types/express mongoose nodemon ts-node typescript
-```
- //for apis
-
-also install TSC package to setup typescript
-
-```
-yarn tsc --init
-```
-
-uncomment these 3 from server/tsconfig.json
-
-    "rootDir": "./src",                                  /* Specify the root folder within your source files. */
-    "moduleResolution": "node10", 
-    "outDir": "./build",   
-
-as in build folder we have javascript and in src we use typescript
-
-in package.json add scripts
-"scripts": {
-    "start": "node ./build/index.ts",  
+- Add the following scripts to `package.json`:
+  ```json
+  "scripts": {
+    "start": "node ./build/index.ts",
     "build": "tsc -p .",
     "dev": "nodemon ./src/index.ts"
-  },
+  }
+  ```
 
-// yarn start
-// yarn dev
+- Run the server:
+  ```bash
+  yarn dev
+  ```
 
+### 4. Database Setup
+- Create a MongoDB Atlas account and get the connection URI.
+- Set the MongoDB connection string in the server's environment variables.
 
-test if mongodb is connected or not
+## Additional Information
 
-after that create foldere schema and routes in src
-
-using express we can create a post/get request in indext.ts using app.post or app.get but if we wanna create the endpoints in routes folder
-
-in index.ts we create a middleware app.use() where we put route defination of how we want this endpoint to be reached
-
-if we wanna define any specific route maybe get/post req we can make an extension to the middleware endpoint, by first writing middleware endpoint and then whatever we wanna use from routes
-
-after writing code for routes , schema and index.ts go to client/src/pages/financial-record-form.tsx
-
-we want to organise this project in a way such that it is scalable ready , we do that by creating context folder and personal hook for that context that would share all of the different info related to the records
-
-create folder client/src/contexts
-inside create file financial-record-context.tsx where all states and function that alter state exist
-
-inside server install cors package
-
-```
-yarn add cors
-yarn add @types/cors
-```
-
-now for financial-recored-list.tsx we will be using react table library
+- **Scalability**: The project is organized for scalability with separate contexts and custom hooks for managing financial records.
+- **React Context API**: Used to manage global state, such as financial records, across different components.
+- **Express Routes**: Express.js is used for API routes, and routes are modularized for better maintainability.
