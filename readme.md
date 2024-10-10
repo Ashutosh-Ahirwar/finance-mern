@@ -74,8 +74,11 @@ cd finance-mern
   ```bash
   VITE_CLERK_PUBLISHABLE_KEY=<your-publishable-key>
   ```
+### 3. Database Setup
+- Create a MongoDB Atlas account and get the connection URI.
+- Set the MongoDB connection string in the server's environment variables.
 
-### 3. Server Setup
+### 4. Server Setup
 - Navigate to the server directory:
   ```bash
   cd server
@@ -114,9 +117,7 @@ cd finance-mern
   yarn dev
   ```
 
-### 4. Database Setup
-- Create a MongoDB Atlas account and get the connection URI.
-- Set the MongoDB connection string in the server's environment variables.
+
 
 ## Additional Information
 
